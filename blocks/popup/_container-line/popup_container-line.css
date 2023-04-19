@@ -1,0 +1,12 @@
+.popup_container-line{
+  opacity: 0.2;
+border: 1px solid #000000;
+width: 358px;
+align-self: center;
+margin-top: 13px;
+}
+@media screen and (max-width: 615px) {
+    .popup_container-line {
+        width: 238px;
+        }
+}

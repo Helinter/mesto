@@ -1,0 +1,11 @@
+.element__like-button{
+margin-left: auto;
+background: white;
+width: 22px;
+height: 19px;
+padding: 0;
+align-self: center;
+margin-right: 30px;
+border: 0;
+z-index: 1;
+}
