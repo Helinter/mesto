@@ -1,13 +1,13 @@
 .profile__info{
-  width: 336px;
+max-width: 336px;
 color: white;
 display: flex;
 flex-wrap: wrap;
-align-self: center;
+justify-content: space-between;
 }
 @media screen and (max-width: 615px) {
     .profile__info {
-       width: 282px;
+       max-width: 282px;
        justify-content: center;
         }
 }

@@ -3,7 +3,7 @@
   height: 32px;
   padding: 0;
   border: 0;
-  background: #000000;
+  background: transparent;
   position: absolute;
   align-self: flex-end;
   top: -40px;

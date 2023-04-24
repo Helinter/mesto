@@ -6,5 +6,6 @@
     .profile__avatar {
        padding: 0;
        padding-bottom: 26px;
+      padding-top: 8px;
         }
 }
