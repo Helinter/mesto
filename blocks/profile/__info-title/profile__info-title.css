@@ -9,7 +9,7 @@ font-size: 42px;
 line-height: 48px;
 text-overflow: ellipsis;
 white-space: nowrap;
-overflow: hidden; 
+overflow: hidden;
 align-self:flex-end;
 margin-bottom: 10px;
 
