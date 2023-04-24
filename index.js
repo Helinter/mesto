@@ -1,6 +1,6 @@
 //popup
-let popupInputFirst = document.querySelector('.popup__input_type_name');
-let popupInputSecond = document.querySelector('.popup__input_type_job');
+let popupInputFirst = document.querySelector('.popup__input-name');
+let popupInputSecond = document.querySelector('.popup__input-job');
 let profileTitle = document.querySelector('.profile__info-title');
 let profileSubtitle = document.querySelector('.profile__info-subtitle');
 
@@ -31,8 +31,8 @@ let formElement = document.querySelector('.popup__container-button');
 function formSubmitHandler(evt) {
   evt.preventDefault();
 
-  let nameInput = document.querySelector('.popup__input_type_name');
-  let jobInput = document.querySelector('.popup__input_type_job');
+  let nameInput = document.querySelector('.popup__input-name');
+  let jobInput = document.querySelector('.popup__input-job');
 
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
