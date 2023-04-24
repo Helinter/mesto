@@ -31,8 +31,8 @@ let formElement = document.querySelector('.popup__container-button');
 function formSubmitHandler(evt) {
   evt.preventDefault();
 
-  let nameInput = document.querySelector('.popup__input_type-name');
-  let jobInput = document.querySelector('.popup__input_type-job');
+  let nameInput = document.querySelector('.popup__input_type_name');
+  let jobInput = document.querySelector('.popup__input_type_job');
 
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
