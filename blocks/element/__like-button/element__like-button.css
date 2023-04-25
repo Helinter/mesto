@@ -10,3 +10,7 @@ z-index: 1;
 background-image: url(../../../images/like_disabled.svg);
 margin-top: 10px;
 }
+
+.element__like-button:hover{
+  opacity: 0.6;
+}
