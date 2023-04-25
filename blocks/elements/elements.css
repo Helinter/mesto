@@ -17,6 +17,6 @@
     .elements {
         grid-template-columns: 282px;
         grid-template-rows: repeat(6, 1fr);
-        gap: 20px 0;
+        gap: 18px 0;
         }
 }
