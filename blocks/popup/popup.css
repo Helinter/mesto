@@ -1,11 +1,11 @@
-.popup{
-  background: rgba(0,0,0,.5);
-width: 100vw;
-height: 100vh;
-position: fixed;
-top: 0;
-right: 0;
-z-index: 10;
-display: none;
-justify-content: center;
+.popup {
+  background: rgba(0, 0, 0, .5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  display: none;
+  justify-content: center;
 }

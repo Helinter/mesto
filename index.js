@@ -11,12 +11,12 @@ let openPopup = document.querySelector('.profile__info-edit-button');
 let popup = document.querySelector('.popup');
 
 openPopup.addEventListener('click', function () {
-  popup.classList.add('popup__opened');
+  popup.classList.add('popup_opened');
 });
 
 let closePopup = document.querySelector('.popup__container-close-button');
 closePopup.addEventListener('click', function () {
-  popup.classList.remove('popup__opened');
+  popup.classList.remove('popup_opened');
   profileTitle.textContent = popupInputFirst.value = profileTitle.textContent;
   popupInputSecond.value = profileSubtitle.textContent;
 });
@@ -36,7 +36,7 @@ function formSubmitHandler(evt) {
 
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  popup.classList.remove('popup__opened');
+  popup.classList.remove('popup_opened');
 }
 
 formElement.addEventListener('click', formSubmitHandler);

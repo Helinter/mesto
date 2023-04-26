@@ -1,4 +1,4 @@
-.elements{
+.elements {
   max-width: 880px;
   margin: auto;
   display: grid;
@@ -7,16 +7,18 @@
   gap: 20px 17px;
   justify-content: center;
 }
+
 @media screen and (max-width: 879px) {
-    .elements {
-        grid-template-columns: repeat(2, 282px);
-        grid-template-rows: repeat(3, 1fr);
-        }
+  .elements {
+    grid-template-columns: repeat(2, 282px);
+    grid-template-rows: repeat(3, 1fr);
+  }
 }
+
 @media screen and (max-width: 615px) {
-    .elements {
-        grid-template-columns: 282px;
-        grid-template-rows: repeat(6, 1fr);
-        gap: 18px 0;
-        }
+  .elements {
+    grid-template-columns: 282px;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 18px 0;
+  }
 }
