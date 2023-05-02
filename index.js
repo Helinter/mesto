@@ -95,7 +95,7 @@ let popupCard = document.querySelector('.card-popup');
 openCardPopup.addEventListener('click', function () {
   popupCard.classList.add('popup_opened');
 });
-let closeCardPopup = document.querySelector('#closeBut');
+let closeCardPopup = document.querySelector('#CloseBut');
 closeCardPopup.addEventListener('click', function () {
   popupCard.classList.remove('popup_opened');
 });
