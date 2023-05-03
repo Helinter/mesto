@@ -69,20 +69,20 @@ const initialCards = [
   }
 ];
 const cardsContainer = document.querySelector('.elements');
-function addCard() {
+function addCards() {
   let i = 0;
   for (i = 0; i < initialCards.length; i++) {
     const cardTemplate = document.querySelector('.card').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-    cardElement.querySelector('.element__title').textContent = initialCards[i].name;
     cardsContainer.append(cardElement);
+    cardElement.querySelector('.element__title').textContent = initialCards[i].name;
     const titleImage = cardElement.querySelector('.element__image');
     titleImage.setAttribute('src', initialCards[i].link);
 
   }
 }
 
-addCard();
+addCards();
 
 //cardsFormPopup
 
@@ -104,3 +104,30 @@ closeCardPopup.addEventListener('click', function () {
 //AddCard
 
 
+let formCardElement = document.querySelector('#cardSubmit');
+
+function addCard(evt) {
+  evt.preventDefault();
+
+  let placeInput = document.querySelector('.popup__input_type_place');
+  let linkInput = document.querySelector('.popup__input_type_link');
+
+  const cardTemplate = document.querySelector('.card').content;
+  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+
+initialCards.splice(initialCards.length, 0, {name: '', link: ''});
+initialCards[initialCards.length - 1].name = placeInput.value;
+initialCards[initialCards.length - 1].link = linkInput.value;
+
+  cardElement.querySelector('.element__title').textContent = initialCards[initialCards.length - 1].name;
+  const titleImage = cardElement.querySelector('.element__image');
+  titleImage.setAttribute('src', initialCards[initialCards.length - 1].link);
+  titleImage.setAttribute('alt', initialCards[initialCards.length - 1].name);
+  
+  cardsContainer.prepend(cardElement);
+  popupCard.classList.remove('popup_opened');
+  placeInput.value = 'Название';
+  linkInput.value = 'Ссылка на картинку';
+}
+
+formCardElement.addEventListener('click', addCard);
