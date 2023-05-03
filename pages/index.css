@@ -27,3 +27,4 @@
 @import url(../blocks/profile/__info-edit-button/profile__info-edit-button.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/profile/__add-button-image/profile__add-button-image.css);
+@import url(../blocks/element/__like-button/element__like-button_active.css);
