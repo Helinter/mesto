@@ -1,5 +1,3 @@
-
-
 //popup
 let popupInputFirst = document.querySelector('.popup__input_type_name');
 let popupInputSecond = document.querySelector('.popup__input_type_job');
@@ -127,7 +125,7 @@ function addCard(evt) {
   popupCard.classList.remove('popup_opened');
   placeInput.value = 'Название';
   linkInput.value = 'Ссылка на картинку';
-
+  openImage();
 }
 
 formCardElement.addEventListener('click', addCard);
@@ -135,10 +133,10 @@ formCardElement.addEventListener('click', addCard);
 //like
 function like() {
   const likeButton = document.querySelector('.element__like-button');
-    likeButton.addEventListener("click", function () {
-      likeButton.classList.toggle("element__like-button_active");
-    });
-  }
+  likeButton.addEventListener("click", function () {
+    likeButton.classList.toggle("element__like-button_active");
+  });
+}
 formCardElement.addEventListener('click', like);
 formCardElement.addEventListener('click', deleteCard);
 
@@ -161,8 +159,26 @@ function deleteCard() {
   for (let i = 0; i < deleteButton.length; i++) {
     deleteButton[i].addEventListener("click", function () {
       const listItem = deleteButton[i].closest('.element');
-  listItem.remove();
+      listItem.remove();
     });
   }
 }
 deleteCard();
+
+//image popup
+
+function openImage() {
+  const imageButton = document.querySelectorAll('.element__image');
+  for (let i = 0; i < imageButton.length; i++) {
+    imageButton[i].addEventListener("click", function () {
+      const popupImage = document.querySelector('.popup__image');
+      popupImage.classList.add('popup_opened');
+    
+      const imageClose = document.querySelector('#imageClose');
+      imageClose.addEventListener('click', function () {
+        popupImage.classList.remove('popup_opened');
+        
+    });})
+  }
+  }
+openImage();
