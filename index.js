@@ -132,6 +132,7 @@ function addCard(evt) {
 
 formCardElement.addEventListener('click', addCard);
 
+//like
 function like() {
   const likeButton = document.querySelector('.element__like-button');
     likeButton.addEventListener("click", function () {
@@ -139,6 +140,7 @@ function like() {
     });
   }
 formCardElement.addEventListener('click', like);
+formCardElement.addEventListener('click', deleteCard);
 
 
 function likes() {
@@ -151,3 +153,16 @@ function likes() {
 }
 
 likes();
+
+//delete cards
+
+function deleteCard() {
+  const deleteButton = document.querySelectorAll('.element__delete-button');
+  for (let i = 0; i < deleteButton.length; i++) {
+    deleteButton[i].addEventListener("click", function () {
+      const listItem = deleteButton[i].closest('.element');
+  listItem.remove();
+    });
+  }
+}
+deleteCard();
