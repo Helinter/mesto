@@ -17,7 +17,7 @@ openPopup.addEventListener('click', function () {
 let closePopup = document.querySelector('.popup__container-close-button');
 closePopup.addEventListener('click', function () {
   popup.classList.remove('popup_opened');
-  profileTitle.textContent = popupInputFirst.value = profileTitle.textContent;
+  profileTitle.textContent = popupInputFirst.value;
   popupInputSecond.value = profileSubtitle.textContent;
 });
 
@@ -170,15 +170,25 @@ deleteCard();
 function openImage() {
   const imageButton = document.querySelectorAll('.element__image');
   for (let i = 0; i < imageButton.length; i++) {
+
     imageButton[i].addEventListener("click", function () {
       const popupImage = document.querySelector('.popup__image');
       popupImage.classList.add('popup_opened');
     
+const imageTitle = document.querySelector('.popup__image-container-title');
+const elementTitle = document.querySelectorAll('.element__title');
+imageTitle.textContent = elementTitle[i].textContent;
+
+const elementImage = document.querySelectorAll('.element__image');
+const popupImg = document.querySelector('.popup__img')
+popupImg.setAttribute('src', elementImage[i].getAttribute('src'));
+    })
+
       const imageClose = document.querySelector('#imageClose');
+      const popupImage = document.querySelector('.popup__image');
       imageClose.addEventListener('click', function () {
         popupImage.classList.remove('popup_opened');
-        
-    });})
+    }); 
   }
   }
 openImage();
