@@ -3,7 +3,6 @@
   max-height: 75vh;
   align-self: center;
   display: flex;
-    align-self: center;
-    flex-direction: column;
-    position: relative;
+  flex-direction: column;
+  position: relative;
 }
