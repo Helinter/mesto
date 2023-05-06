@@ -174,7 +174,7 @@ function openImage() {
   const popupImg = document.querySelector('.popup__img');
   const imageTitle = document.querySelector('.popup__image-container-title');
   const elementTitle = document.querySelectorAll('.element__title');
-  const popupImage = document.querySelector('.popup__image');
+  const popupImage = document.querySelector('.popup_image');
   for (let i = 0; i < imageButton.length; i++) {
 
     imageButton[i].addEventListener("click", function () {
@@ -185,7 +185,7 @@ function openImage() {
     })
 
     const imageClose = document.querySelector('#imageClose');
-    const popupImage = document.querySelector('.popup__image');
+    const popupImage = document.querySelector('.popup_image');
     imageClose.addEventListener('click', function () {
       popupImage.classList.remove('popup_opened');
     });
