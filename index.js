@@ -76,26 +76,27 @@ const initialCards = [
   }
 ];
 
-const cardTemplate = document.querySelector('.card').content;
-const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-const titleImage = cardElement.querySelector('.element__image');
+
 const cardsContainer = document.querySelector('.elements');
 
 function createCard(cardTitle, cardLink) {
-  
+  const cardTemplate = document.querySelector('.card').content;
+  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+  const titleImage = cardElement.querySelector('.element__image');
   cardElement.querySelector('.element__title').textContent = cardTitle;
   titleImage.setAttribute('src', cardLink);
+  titleImage.setAttribute('alt', cardTitle);
   console.log(cardElement);
   return cardElement;
 }
 
 
 function addCards() {
-  
+
   let i = 0;
   for (i = 0; i < initialCards.length; i++) {
-    createCard(initialCards[i].name, initialCards[i].link);
-    cardsContainer.append(cardElement);
+    const card = createCard(initialCards[i].name, initialCards[i].link);
+    cardsContainer.append(card);
   }
 }
 
