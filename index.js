@@ -107,6 +107,7 @@ function createCard(cardTitle, cardLink) {
   const ImageButton = cardElement.querySelector('.element__image');
   ImageButton.addEventListener("click", function () {
     openPopup(popupImage);
+    
     imagePopupTitle.textContent = cardTitle;
     ImagePopupImg.setAttribute('src', cardLink);
     ImagePopupImg.setAttribute('alt', cardTitle);
