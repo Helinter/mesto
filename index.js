@@ -102,15 +102,15 @@ function createCard(cardTitle, cardLink) {
     listItem.remove();
   });
 
-  const ImagePopupImg = document.querySelector('.popup__img');
+  const imagePopupImg = document.querySelector('.popup__img');
   const imagePopupTitle = document.querySelector('.popup__image-container-title');
-  const ImageButton = cardElement.querySelector('.element__image');
-  ImageButton.addEventListener("click", function () {
+  const imageButton = cardElement.querySelector('.element__image');
+  imageButton.addEventListener("click", function () {
     openPopup(popupImage);
     
     imagePopupTitle.textContent = cardTitle;
-    ImagePopupImg.setAttribute('src', cardLink);
-    ImagePopupImg.setAttribute('alt', cardTitle);
+    imagePopupImg.setAttribute('src', cardLink);
+    imagePopupImg.setAttribute('alt', cardTitle);
   })
   return cardElement;
 }
