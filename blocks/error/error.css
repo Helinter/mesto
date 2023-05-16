@@ -17,11 +17,11 @@
 
 @media screen and (max-width: 615px) {
   .error {
-    top: 208px;
+    top: 210px;
     left: 22px;
   }
   .error:first-child {
-    top: 151px;
+    top: 153px;
   }
 }
 
