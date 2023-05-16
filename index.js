@@ -184,7 +184,7 @@ function hideError(inputElement, errorElement) {
 function toggleButtonState(buttonElement, isActive){
 if(!isActive){
   console.log(buttonElement, isActive);
-  buttonElement.disabled = 'disabled';
+  buttonElement.disabled = true;
   buttonElement.classList.add('popup__container-button_invalid');
 } else {
   buttonElement.disabled = false;
