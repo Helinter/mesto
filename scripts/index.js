@@ -22,6 +22,22 @@ function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
 }
 
+
+function closePopupsOnEsc() {
+  function handleEscKey(event) {
+    if (event.key === 'Esc' || event.key === 'Escape') {
+      const popups = document.querySelectorAll('.popup');
+      for (let i = 0; i < popups.length; i++) {
+        closePopup(popups[i]);
+      }
+    }
+  }
+
+  document.addEventListener('keydown', handleEscKey);
+}
+
+closePopupsOnEsc();
+
 const closeProfileEditPopup = document.querySelector('.popup__container-close-button');
 closeProfileEditPopup.addEventListener('click', function () {
   closePopup(profileEditPopup);
@@ -42,6 +58,8 @@ function anableOverlayClosing() {
   }
 }
 anableOverlayClosing()
+
+
 
 const imageClose = document.querySelector('#imageClose');
 const popupImage = document.querySelector('.popup_type_image');
