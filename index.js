@@ -183,7 +183,8 @@ function hideError(inputElement, errorElement) {
 
 function toggleButtonState(buttonElement, isActive){
 if(!isActive){
-  buttonElement.disabled = true;
+  console.log(buttonElement, isActive);
+  buttonElement.disabled = 'disabled';
   buttonElement.classList.add('popup__container-button_invalid');
 } else {
   buttonElement.disabled = false;
@@ -193,7 +194,6 @@ if(!isActive){
 
 
 function checkInputValidity(inputElement, formElement) {
-  console.log(inputElement.validity);
   const isInputValid = inputElement.validity.valid;
   const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
   if (!errorElement) return;
@@ -213,6 +213,7 @@ function setEventListeners(formElement) {
   const inputsList = formElement.querySelectorAll('.popup__input');
   const submitButtonElement = formElement.querySelector('.popup__container-button');
 
+ 
 
   formElement.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -222,6 +223,7 @@ function setEventListeners(formElement) {
   [...inputsList].forEach((inputItem) => {
     inputItem.addEventListener('input', () => {
       checkInputValidity(inputItem, formElement);
+      toggleButtonState(submitButtonElement, formElement.checkValidity())
     })
   })
 }
