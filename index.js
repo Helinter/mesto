@@ -40,7 +40,6 @@ imageClose.addEventListener('click', function () {
 const formProfileElement = document.querySelector('.popup__container-button');
 
 function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
 
   const nameInput = document.querySelector('.popup__input_type_name');
   const jobInput = document.querySelector('.popup__input_type_job');
@@ -107,7 +106,7 @@ function createCard(cardTitle, cardLink) {
   const imageButton = cardElement.querySelector('.element__image');
   imageButton.addEventListener("click", function () {
     openPopup(popupImage);
-    
+
     imagePopupTitle.textContent = cardTitle;
     imagePopupImg.setAttribute('src', cardLink);
     imagePopupImg.setAttribute('alt', cardTitle);
@@ -150,7 +149,6 @@ closeCardPopup.addEventListener('click', function () {
 const formCardElement = document.querySelector('#cardSubmit');
 
 function addCard(evt) {
-  evt.preventDefault();
 
   const placeInput = document.querySelector('.popup__input_type_place');
   const linkInput = document.querySelector('.popup__input_type_link');
@@ -171,3 +169,70 @@ function addCard(evt) {
 }
 
 formCardElement.addEventListener('click', addCard);
+
+
+//Forms
+function showError(inputElement, errorElement) {
+  inputElement.classList.add('popup__input_invalid');
+  errorElement.textContent = inputElement.validationMessage;
+}
+function hideError(inputElement, errorElement) {
+  inputElement.classList.remove('popup__input_invalid');
+  errorElement.textContent = inputElement.validationMessage;
+}
+
+function toggleButtonState(buttonElement, isActive){
+if(!isActive){
+  buttonElement.disabled = true;
+  buttonElement.classList.add('popup__container-button_invalid');
+} else {
+  buttonElement.disabled = false;
+  buttonElement.classList.remove('popup__container-button_invalid');
+}
+}
+
+
+function checkInputValidity(inputElement, formElement) {
+  console.log(inputElement.validity);
+  const isInputValid = inputElement.validity.valid;
+  const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+  if (!errorElement) return;
+
+  if (!isInputValid) {
+    showError(inputElement, errorElement)
+  }
+  else {
+    hideError(inputElement, errorElement)
+  }
+
+}
+
+
+
+function setEventListeners(formElement) {
+  const inputsList = formElement.querySelectorAll('.popup__input');
+  const submitButtonElement = formElement.querySelector('.popup__container-button');
+
+
+  formElement.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+  });
+
+  [...inputsList].forEach((inputItem) => {
+    inputItem.addEventListener('input', () => {
+      checkInputValidity(inputItem, formElement);
+    })
+  })
+}
+
+function enableValidation() {
+  const forms = document.querySelectorAll('.form');
+  console.log(forms);
+  [...forms].forEach((formItem) => {
+    setEventListeners(formItem);
+  })
+}
+
+enableValidation();
+
