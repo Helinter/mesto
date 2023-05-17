@@ -1,6 +1,6 @@
 .error {
   font-size: 12px;
-  line-height: 14px;
+  line-height: 15px;
   color: red;
   display: block;
   margin: 0;
@@ -12,8 +12,6 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
 }
 
 .error:first-child {
