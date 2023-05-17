@@ -17,7 +17,7 @@ function hideError(inputElement, errorElement, config) {
   errorElement.textContent = inputElement.validationMessage;
 }
 
-function toggleButtonState(buttonElement, isActive) {
+function toggleButtonState(buttonElement, isActive, config) {
   if (!isActive) {
     buttonElement.disabled = true;
     buttonElement.classList.add(config.inactiveButtonClass);

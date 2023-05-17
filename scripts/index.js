@@ -155,7 +155,10 @@ function addCard(evt) {
   const elementCard = createCard(placeInput.value, linkInput.value);
   cardsContainer.prepend(elementCard);
   closePopup(popupCard);
-  document.getElementById('placeForm').reset();
+  formCardElement.reset();
+  const submitButton = document.getElementById('cardSubmit');
+  submitButton.classList.add('popup__container-button_invalid');
+  submitButton.disabled = true;
 }
 
 formCardElement.addEventListener('submit', addCard);
