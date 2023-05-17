@@ -1,4 +1,4 @@
-.error{
+.error {
   font-size: 12px;
   line-height: 14px;
   color: red;
@@ -7,21 +7,26 @@
   box-sizing: border-box;
   height: 25px;
   position: absolute;
-  top: 200px;
+  top: 197px;
   left: 36px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
 }
 
-.error:first-child{
-  top: 143px;
+.error:first-child {
+  top: 140px;
 }
 
 @media screen and (max-width: 615px) {
   .error {
-    top: 210px;
+    top: 207px;
     left: 22px;
   }
+
   .error:first-child {
-    top: 153px;
+    top: 150px;
   }
 }
-

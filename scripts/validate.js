@@ -1,4 +1,7 @@
 //Forms
+
+
+
 function showError(inputElement, errorElement) {
   inputElement.classList.add('popup__input_invalid');
   errorElement.textContent = inputElement.validationMessage;
@@ -57,3 +60,8 @@ function enableValidation() {
 
 enableValidation();
 
+function resetError(formElement, config) { 
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  inputList.forEach(inputElement => hideInputError(formElement, inputElement, config));
+  toggleButtonState(formElement, inputList, config); 
+}
