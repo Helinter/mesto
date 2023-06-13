@@ -3,57 +3,57 @@
 
 class Card {
   constructor(data, cardTemplate) {
-    this.popupImage = data.popupImage,
-    this._imagePopupImg = data.imagePopupImg,
-    this._imagePopupTitle = data.imagePopupTitle,
-    this._cardElement = cardTemplate.querySelector('.element').cloneNode(true),
-    this._name = data.name,
-    this._link = data.link,
-    this._titleImage = this._cardElement.querySelector('.element__image'),
-    this._deleteButton = this._cardElement.querySelector('.element__delete-button'),
-    this._likeButton = this._cardElement.querySelector('.element__like-button'),
-    this._listItem = this._deleteButton.closest('.element')
+    this._popupImage = data.popupImage,
+      this._imagePopupImg = data.imagePopupImg,
+      this._imagePopupTitle = data.imagePopupTitle,
+      this._cardElement = cardTemplate.querySelector('.element').cloneNode(true),
+      this._name = data.name,
+      this._link = data.link,
+      this._titleImage = this._cardElement.querySelector('.element__image'),
+      this._deleteButton = this._cardElement.querySelector('.element__delete-button'),
+      this._likeButton = this._cardElement.querySelector('.element__like-button'),
+      this._listItem = this._deleteButton.closest('.element')
   }
-    createCard() {
-      this._htmlSetings();
-      this._seteventlisteners();
-      return this._cardElement;
-      }
+  createCard() {
+    this._htmlSetings();
+    this._seteventlisteners();
+    return this._cardElement;
+  }
 
-      _htmlSetings(){
-        this._cardElement.querySelector('.element__title').textContent = this._name;
-        this._titleImage.setAttribute('src', this._link);
-        this._titleImage.setAttribute('alt', this._name);
-      }
+  _htmlSetings() {
+    this._cardElement.querySelector('.element__title').textContent = this._name;
+    this._titleImage.setAttribute('src', this._link);
+    this._titleImage.setAttribute('alt', this._name);
+  }
 
-      _seteventlisteners(){
-        this._likeOn();
-        this._deleteOn();
-        this._popupImgOn();
-      }
+  _seteventlisteners() {
+    this._likeOn();
+    this._deleteOn();
+    this._popupImgOn();
+  }
 
-      _popupImgOn(){
-        this._titleImage.addEventListener("click", () => {
-          openPopup(this.popupImage)
-          this._imagePopupTitle.textContent = this._name;
-          this._imagePopupImg.setAttribute('src', this._link);
-          this._imagePopupImg.setAttribute('alt', this._name);
-        });
-      }
+  _popupImgOn() {
+    this._titleImage.addEventListener("click", () => {
+      openPopup(this._popupImage)
+      this._imagePopupTitle.textContent = this._name;
+      this._imagePopupImg.setAttribute('src', this._link);
+      this._imagePopupImg.setAttribute('alt', this._name);
+    });
+  }
 
-      _deleteOn(){
-        this._deleteButton.addEventListener("click", () => {
-          this._listItem.remove();
-        });
-      }
+  _deleteOn() {
+    this._deleteButton.addEventListener("click", () => {
+      this._listItem.remove();
+    });
+  }
 
-      _likeOn(){
-        this._likeButton.addEventListener("click", () => {
-          this._likeButton.classList.toggle("element__like-button_active");
-        });
-      }
-      
-  
+  _likeOn() {
+    this._likeButton.addEventListener("click", () => {
+      this._likeButton.classList.toggle("element__like-button_active");
+    });
+  }
+
+
 }
 
 //popup
@@ -78,10 +78,6 @@ const popupCard = document.querySelector('.popup_type_card');
 const closeCardPopup = document.querySelector('#CloseBut');
 const formCardElement = document.forms.placeForm;
 const data = {};
-data.imagePopupImg = imagePopupImg;
-data.imagePopupTitle = imagePopupTitle;
-data.popupImage = popupImage;
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -108,6 +104,10 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+data.imagePopupImg = imagePopupImg;
+data.imagePopupTitle = imagePopupTitle;
+data.popupImage = popupImage;
 
 openProfileEditPopup.addEventListener('click', function () {
   popupInputName.value = profileTitle.textContent;
@@ -176,9 +176,6 @@ formProfileElement.addEventListener('submit', handleProfileFormSubmit);
 
 //cards
 
-
-
-
 function addCards() {
   let i = 0;
   for (i = 0; i < initialCards.length; i++) {
@@ -191,12 +188,10 @@ function addCards() {
 
 addCards();
 
-
-
 //AddCard
 function addCard() {
   data.name = placeInput.value;
-    data.link = linkInput.value;
+  data.link = linkInput.value;
   const card = new Card(data, cardTemplate);
   cardsContainer.prepend(card.createCard());
   closePopup(popupCard);
