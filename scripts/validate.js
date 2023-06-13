@@ -66,15 +66,14 @@ const config = {
   inputErrorClass: 'popup__input_invalid',
   errorClass: 'error'
 }
-
-function enableValidation(config) {
   const forms = document.querySelectorAll(config.formSelector);
+  
   [...forms].forEach((formItem) => {
     const form = new FormValidator(config, formItem);
     form.enableValidation();
   })
-}
 
-enableValidation(config);
+
+
 
 
