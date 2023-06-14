@@ -10,6 +10,7 @@
   text-overflow: fade;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
   align-self: flex-end;
   margin-bottom: 10px;
   min-width: 294px;

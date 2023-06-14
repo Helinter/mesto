@@ -1,6 +1,6 @@
-//Forms
-class FormValidator {
+export class FormValidator {
   constructor(config, formElement) {
+    this._submitButton = document.getElementById('cardSubmit'),
     this._config = config,
       this._formElement = formElement,
       this._inputsList = this._formElement.querySelectorAll(this._config.inputSelector),
@@ -13,11 +13,7 @@ class FormValidator {
   }
 
   _setEventListeners() {
-    this._formElement.addEventListener('submit', (e) => {
-      e.preventDefault();
-    });
-
-    [...this._inputsList].forEach((inputItem) => {
+        [...this._inputsList].forEach((inputItem) => {
       inputItem.addEventListener('input', () => {
         this._checkInputValidity(inputItem);
         this._toggleButtonState();
@@ -56,22 +52,16 @@ class FormValidator {
     inputItem.classList.remove(this._config.inputErrorClass);
     this._errorElement.textContent = inputItem.validationMessage;
   }
+  _buttonDisabled(){
+    this._submitButton.classList.add('popup__container-button_invalid');
+    this._submitButton.disabled = true;
+  }
 
 }
-const config = {
-  formSelector: '.form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__container-button',
-  inactiveButtonClass: 'popup__container-button_invalid',
-  inputErrorClass: 'popup__input_invalid',
-  errorClass: 'error'
-}
-  const forms = document.querySelectorAll(config.formSelector);
+
+
   
-  [...forms].forEach((formItem) => {
-    const form = new FormValidator(config, formItem);
-    form.enableValidation();
-  })
+  
 
 
 

@@ -26,29 +26,24 @@ export class Card {
   }
 
   _seteventlisteners() {
-    this._likeOn();
-    this._deleteOn();
-    this._popupImgOn();
+    this._likeButton.addEventListener("click", () => this._likeOn());
+    this._deleteButton.addEventListener("click", () => this._deleteOn());
+    this._titleImage.addEventListener("click", () => this._popupImgOn());
   }
 
   _popupImgOn() {
-    this._titleImage.addEventListener("click", () => {
       openPopup(this._popupImage)
       this._imagePopupTitle.textContent = this._name;
       this._imagePopupImg.setAttribute('src', this._link);
       this._imagePopupImg.setAttribute('alt', this._name);
-    });
   }
 
   _deleteOn() {
-    this._deleteButton.addEventListener("click", () => {
       this._listItem.remove();
-    });
+      this. _listItem = null;
   }
 
   _likeOn() {
-    this._likeButton.addEventListener("click", () => {
       this._likeButton.classList.toggle("element__like-button_active");
-    });
   }
 }

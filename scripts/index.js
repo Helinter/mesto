@@ -1,4 +1,7 @@
-import {Card} from './Card.js';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+import { config } from "../vendor/config.js";
+
 //popup
 const cardTemplate = document.querySelector('.card').content;
 const popupInputName = document.querySelector('.popup__input_type_name');
@@ -86,8 +89,6 @@ closeCardPopup.addEventListener('click', function () {
 
 closeProfileEditPopup.addEventListener('click', function () {
   closePopup(profileEditPopup);
-  popupInputName.value = profileTitle.textContent;
-  popupInputJob.value = profileSubtitle.textContent;
 });
 
 function anableOverlayClosing() {
@@ -119,13 +120,17 @@ formProfileElement.addEventListener('submit', handleProfileFormSubmit);
 
 //cards
 
+function createCard() {
+  const card = new Card(data, cardTemplate);
+  return card.createCard();
+}
+
 function addCards() {
   let i = 0;
   for (i = 0; i < initialCards.length; i++) {
     data.name = initialCards[i].name;
     data.link = initialCards[i].link;
-    const card = new Card(data, cardTemplate);
-    cardsContainer.append(card.createCard());
+    cardsContainer.append(createCard());
   }
 }
 
@@ -135,13 +140,24 @@ addCards();
 function addCard() {
   data.name = placeInput.value;
   data.link = linkInput.value;
-  const card = new Card(data, cardTemplate);
-  cardsContainer.prepend(card.createCard());
+  cardsContainer.prepend(createCard());
   closePopup(popupCard);
   formCardElement.reset();
-  const submitButton = document.getElementById('cardSubmit');
-  submitButton.classList.add('popup__container-button_invalid');
-  submitButton.disabled = true;
 }
 
+
+
 formCardElement.addEventListener('submit', addCard);
+
+//Forms
+const forms = document.querySelectorAll(config.formSelector);
+
+[...forms].forEach((formItem) => {
+  const form = new FormValidator(config, formItem);
+  form.enableValidation();
+  formItem.addEventListener('submit', (e) => { 
+    e.preventDefault(); 
+    form._buttonDisabled();
+  });
+})
+
