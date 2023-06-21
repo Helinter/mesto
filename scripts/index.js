@@ -1,6 +1,7 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { config } from "../vendor/config.js";
+import { Section } from './Section.js'
 
 //popup
 const cardTemplate = document.querySelector('.card').content;
@@ -23,7 +24,7 @@ const openCardPopup = document.querySelector('.profile__add-button');
 const popupCard = document.querySelector('.popup_type_card');
 const closeCardPopup = document.querySelector('#CloseBut');
 const formCardElement = document.forms.placeForm;
-const data = {};
+export const data = {};
 const initialCards = [
   {
     name: 'Архыз',
@@ -125,29 +126,31 @@ function createCard() {
   return card.createCard();
 }
 
-function addCards() {
-  let i = 0;
-  for (i = 0; i < initialCards.length; i++) {
-    data.name = initialCards[i].name;
-    data.link = initialCards[i].link;
-    cardsContainer.append(createCard());
-  }
+function renderer(item) {
+  data.name = item.name;
+  data.link = item.link;
+  renderInitialCards.addItem(createCard());
 }
 
-addCards();
+const renderInitialCards = new Section({
+  items: initialCards,
+  renderer: renderer,
+}, '.elements');
 
-//AddCard
-function addCard() {
+renderInitialCards.renderItems();
+
+const renderNewCard = new Section({
+  items: {},
+  renderer: renderer,
+}, '.elements');
+
+formCardElement.addEventListener('submit', () => {
   data.name = placeInput.value;
   data.link = linkInput.value;
-  cardsContainer.prepend(createCard());
+  renderNewCard.addItem(createCard());
   closePopup(popupCard);
   formCardElement.reset();
-}
-
-
-
-formCardElement.addEventListener('submit', addCard);
+});
 
 //Forms
 const forms = document.querySelectorAll(config.formSelector);
@@ -155,9 +158,8 @@ const forms = document.querySelectorAll(config.formSelector);
 [...forms].forEach((formItem) => {
   const form = new FormValidator(config, formItem);
   form.enableValidation();
-  formItem.addEventListener('submit', (e) => { 
-    e.preventDefault(); 
+  formItem.addEventListener('submit', (e) => {
+    e.preventDefault();
     form._buttonDisabled();
   });
 })
-
