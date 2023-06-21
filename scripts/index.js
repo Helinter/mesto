@@ -129,27 +129,31 @@ function createCard() {
 function renderer(item) {
   data.name = item.name;
   data.link = item.link;
-  renderInitialCards.addItem(createCard());
+  this.addItem(createCard());
 }
 
-const renderInitialCards = new Section({
+const renderCards = new Section({
   items: initialCards,
   renderer: renderer,
 }, '.elements');
 
-renderInitialCards.renderItems();
+renderCards.renderItems();
 
-const renderNewCard = new Section({
+const newCard = new Section({
   items: {},
   renderer: renderer,
 }, '.elements');
 
-formCardElement.addEventListener('submit', () => {
+function renderNewCard(){
   data.name = placeInput.value;
   data.link = linkInput.value;
-  renderNewCard.addItem(createCard());
+  newCard.addItem(createCard())
   closePopup(popupCard);
   formCardElement.reset();
+  }
+
+formCardElement.addEventListener('submit', () => {
+  renderNewCard();
 });
 
 //Forms

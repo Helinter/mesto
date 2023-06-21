@@ -5,17 +5,17 @@ export class Section {
     this._items = items;
   }
 
-  addItem(element) {
-    if (this._items.length > 1) {
-    this._container.append(element);}
-    else { this._container.prepend(element);}
-  }
-
   renderItems() {
     this._items.forEach(item => {
       this._renderer(item);
     })
     };
+
+    addItem(element) {
+    if (this._items.length > 1) {
+    this._container.append(element);}
+    else { this._container.prepend(element);}
+  }
   }
 
 
