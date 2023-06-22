@@ -2,6 +2,8 @@ import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import { config } from "../vendor/config.js";
 import { Section } from './Section.js'
+import { PopupWithImage } from './PopupWithImage.js';
+import { Popup } from "./Popup.js";
 
 //popup
 const cardTemplate = document.querySelector('.card').content;
@@ -17,7 +19,6 @@ const closeProfileEditPopup = document.querySelector('.popup__container-close-bu
 const imageClose = document.querySelector('#imageClose');
 const popupImage = document.querySelector('.popup_type_image');
 const formProfileElement = document.forms.profileForm;
-const cardsContainer = document.querySelector('.elements');
 const placeInput = document.querySelector('.popup__input_type_place');
 const linkInput = document.querySelector('.popup__input_type_link');
 const openCardPopup = document.querySelector('.profile__add-button');
@@ -55,6 +56,10 @@ const initialCards = [
 data.imagePopupImg = imagePopupImg;
 data.imagePopupTitle = imagePopupTitle;
 data.popupImage = popupImage;
+
+
+
+
 
 openProfileEditPopup.addEventListener('click', function () {
   popupInputName.value = profileTitle.textContent;
@@ -121,15 +126,18 @@ formProfileElement.addEventListener('submit', handleProfileFormSubmit);
 
 //cards
 
-function createCard() {
-  const card = new Card(data, cardTemplate);
-  return card.createCard();
+function handleCardClick(image){
+ const openImage = new PopupWithImage('.popup_type_image');
+ openImage.open(image);
 }
 
+function createCard(item) {
+  const card = new Card(item, cardTemplate, handleCardClick);
+  return card.createCard();
+  }
+
 function renderer(item) {
-  data.name = item.name;
-  data.link = item.link;
-  this.addItem(createCard());
+  this.addItem(createCard(item));
 }
 
 const renderCards = new Section({
@@ -139,18 +147,19 @@ const renderCards = new Section({
 
 renderCards.renderItems();
 
-const newCard = new Section({
+const aNewCard = new Section({
   items: {},
   renderer: renderer,
 }, '.elements');
 
-function renderNewCard(){
-  data.name = placeInput.value;
-  data.link = linkInput.value;
-  newCard.addItem(createCard())
+function renderNewCard() {
+  const item ={};
+  item.name = placeInput.value;
+  item.link = linkInput.value;
+  aNewCard.addItem(createCard(item))
   closePopup(popupCard);
   formCardElement.reset();
-  }
+}
 
 formCardElement.addEventListener('submit', () => {
   renderNewCard();

@@ -1,7 +1,5 @@
-import{openPopup} from './index.js';
-
 export class Card {
-  constructor(data, cardTemplate) {
+  constructor(data, cardTemplate, handleCardClick) {
     this._popupImage = data.popupImage,
       this._imagePopupImg = data.imagePopupImg,
       this._imagePopupTitle = data.imagePopupTitle,
@@ -11,7 +9,8 @@ export class Card {
       this._titleImage = this._cardElement.querySelector('.element__image'),
       this._deleteButton = this._cardElement.querySelector('.element__delete-button'),
       this._likeButton = this._cardElement.querySelector('.element__like-button'),
-      this._listItem = this._deleteButton.closest('.element')
+      this._listItem = this._deleteButton.closest('.element'),
+      this._handleCardClick = handleCardClick;
   }
   createCard() {
     this._htmlSetings();
@@ -32,10 +31,7 @@ export class Card {
   }
 
   _popupImgOn() {
-      openPopup(this._popupImage)
-      this._imagePopupTitle.textContent = this._name;
-      this._imagePopupImg.setAttribute('src', this._link);
-      this._imagePopupImg.setAttribute('alt', this._name);
+      this._handleCardClick(this._titleImage);
   }
 
   _deleteOn() {
