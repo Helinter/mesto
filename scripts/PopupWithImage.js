@@ -8,6 +8,7 @@ export class PopupWithImage extends Popup{
     this._popupImg = this._popupElement.querySelector('popup__img');
   }
   open(image){
+    super.setEventListeners();
     this._popupElement.querySelector('.popup__image-container-title').textContent = image.alt;
     this._popupElement.querySelector('.popup__img').src= image.src;
     this._popupElement.querySelector('.popup__img').alt= image.alt;
