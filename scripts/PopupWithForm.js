@@ -26,6 +26,6 @@ export class PopupWithForm extends Popup{
     this._closePopup.addEventListener('click', this.close.bind(this)); 
     this._formSubmitButton.addEventListener('submit', () =>{
       this.handleFormSubmit();
-   
+    this.close();
     });
   }}
