@@ -48,7 +48,8 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
+const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', handleFormSubmit(formProfileElement));
+const popupFormPlace = new PopupWithForm('.popup_type_card', handleFormSubmit(formCardElement));
 
 
 //POPUP IMAGE
@@ -86,25 +87,12 @@ function renderNewCard() {
   item.link = linkInput.value;
   aNewCard.addItem(createCard(item))
   formCardElement.reset();
-}
-
-function placeFormSubmit(){
-formCardElement.addEventListener('submit', (e) => {
-  e.preventDefault();
-  renderNewCard();
-  console.log('форма карточки')
-});}
-
-function profileFormSubmit(){
-  formProfileElement.addEventListener('submit', (e) => {
-    e.preventDefault();
-    console.log('форма профиля')
-  });
+  popupFormPlace.close();
 }
 
 //Forms
 
-const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', handleFormSubmit(formProfileElement));
+
 
 openProfileEditPopup.addEventListener('click', function () {
   popupInputName.value = profileTitle.textContent;
@@ -113,12 +101,25 @@ openProfileEditPopup.addEventListener('click', function () {
   popupFormProfile.open();
 });
 
-const popupFormPlace = new PopupWithForm('.popup_type_card', handleFormSubmit(formCardElement));
+
 
 openCardPopup.addEventListener('click', function () {
   enableValidation(document.getElementById("placeForm"))
   popupFormPlace.open();
 });
+
+function placeFormSubmit(){
+  formCardElement.addEventListener('submit', (e) => {
+    e.preventDefault();
+    renderNewCard();
+  });}
+  
+  function profileFormSubmit(){
+    formProfileElement.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+    });
+  }
 
 function handleFormSubmit (form) {
  if (form == formCardElement){

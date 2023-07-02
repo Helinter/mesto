@@ -12,20 +12,16 @@ export class PopupWithForm extends Popup{
 
   close(){
     this._popupElement.classList.remove('popup_opened');
+    
   }
 
   _getInputValues(){
 
   }
 
-  _submitForm(){
-    
-  }
-
   setEventListeners(){
     this._closePopup.addEventListener('click', this.close.bind(this)); 
     this._formSubmitButton.addEventListener('submit', () =>{
       this.handleFormSubmit();
-    this.close();
     });
   }}
