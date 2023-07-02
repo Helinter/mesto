@@ -48,8 +48,8 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', handleFormSubmit(formProfileElement));
-const popupFormPlace = new PopupWithForm('.popup_type_card', handleFormSubmit(formCardElement));
+const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', handleFormSubmit(formProfileElement), formProfileElement);
+const popupFormPlace = new PopupWithForm('.popup_type_card', handleFormSubmit(formCardElement), formCardElement);
 
 
 //POPUP IMAGE
@@ -86,10 +86,13 @@ function renderNewCard() {
   item.name = placeInput.value;
   item.link = linkInput.value;
   aNewCard.addItem(createCard(item))
-  formCardElement.reset();
   popupFormPlace.close();
 }
 
+function editProfileInformation() {
+
+  popupFormProfile.close();
+}
 //Forms
 
 
@@ -108,34 +111,34 @@ openCardPopup.addEventListener('click', function () {
   popupFormPlace.open();
 });
 
-function placeFormSubmit(){
+function placeFormSubmit() {
   formCardElement.addEventListener('submit', (e) => {
     e.preventDefault();
     renderNewCard();
-  });}
-  
-  function profileFormSubmit(){
-    formProfileElement.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-    });
-  }
+  });
+}
 
-function handleFormSubmit (form) {
- if (form == formCardElement){
-  placeFormSubmit();
-  console.log('handleFormSubmit КАРД')
- } else{
-  profileFormSubmit();
-  console.log('handleFormSubmit ПРОФАЙЛ')
- }
+function profileFormSubmit() {
+  formProfileElement.addEventListener('submit', (e) => {
+    e.preventDefault();
+    editProfileInformation();
+  });
+}
+
+function handleFormSubmit(form) {
+  if (form == formCardElement) {
+    placeFormSubmit();
+
+  } else {
+    profileFormSubmit();
+
+  }
 }
 
 function enableValidation(formItem) {
   const form = new FormValidator(config, formItem);
   form.enableValidation();
   formItem.addEventListener('submit', () => {
-    
     form._buttonDisabled();
   });
 }
