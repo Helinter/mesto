@@ -5,6 +5,7 @@ import { config } from "../vendor/config.js";
 import { Section } from './Section.js'
 import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
 
 //CONSTSNTS
 const cardTemplate = document.querySelector('.card').content;
@@ -48,7 +49,11 @@ const initialCards = [
 const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', handleFormSubmit(formProfileElement), formProfileElement);
 const popupFormPlace = new PopupWithForm('.popup_type_card', handleFormSubmit(formCardElement), formCardElement);
 const popupCard = new PopupWithImage('.popup_type_image');
-
+const userInfo = new UserInfo({
+  nameSelector: '.profile__info-title',
+  infoSelector: '.profile__info-subtitle'
+});
+const userData = userInfo.getUserInfo();
 
 //POPUP IMAGE
 function handleCardClick(image) {
@@ -86,13 +91,16 @@ function renderNewCard() {
   popupFormPlace.close();
 }
 
-function editProfileInformation() {
-const inputValues = popupFormProfile._getInputValues();
-profileTitle.textContent = inputValues.formName;
-profileSubtitle.textContent = inputValues.formJob;
 
+function editProfileInformation() {
+  const inputValues = popupFormProfile._getInputValues();
+  userInfo.setUserInfo({
+    name: inputValues.formName,
+    info: inputValues.formJob
+  });
   popupFormProfile.close();
 }
+
 //Forms
 
 
