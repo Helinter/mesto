@@ -31,6 +31,7 @@ export class PopupWithForm extends Popup{
   
 
   setEventListeners(){
+    this._handleOverlayClose();
     this._closePopup.addEventListener('click', this.close.bind(this)); 
     this._formSubmitButton.addEventListener('submit', () =>{
       this.handleFormSubmit(this.formElement);
