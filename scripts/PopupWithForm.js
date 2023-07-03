@@ -17,8 +17,10 @@ export class PopupWithForm extends Popup{
   }
 
   _getInputValues(){
-
-  }
+    const form = this.formElement.elements
+    return form
+    }
+  
 
   setEventListeners(){
     this._closePopup.addEventListener('click', this.close.bind(this)); 

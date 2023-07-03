@@ -51,6 +51,7 @@ const initialCards = [
 const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', handleFormSubmit(formProfileElement), formProfileElement);
 const popupFormPlace = new PopupWithForm('.popup_type_card', handleFormSubmit(formCardElement), formCardElement);
 
+console.log(popupFormProfile._getInputValues());
 
 //POPUP IMAGE
 const popupCard = new PopupWithImage('.popup_type_image');
