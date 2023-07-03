@@ -17,14 +17,22 @@ export class PopupWithForm extends Popup{
   }
 
   _getInputValues(){
-    const form = this.formElement.elements
-    return form
-    }
+    const inputElements = this.formElement.querySelectorAll('input');
+    const inputValues = {};
+  
+    inputElements.forEach(input => {
+      const name = input.name;
+      const value = input.value;
+      inputValues[name] = value;
+    });
+  
+    return inputValues;
+  }
   
 
   setEventListeners(){
     this._closePopup.addEventListener('click', this.close.bind(this)); 
     this._formSubmitButton.addEventListener('submit', () =>{
-      this.handleFormSubmit();
+      this.handleFormSubmit(this.formElement);
     });
   }}

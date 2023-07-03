@@ -9,6 +9,7 @@ export class PopupWithImage extends Popup{
   }
   open(image){
     super.setEventListeners();
+    document.addEventListener('keydown', this._handleEscClose.bind(this));
     this._popupElement.querySelector('.popup__image-container-title').textContent = image.alt;
     this._popupElement.querySelector('.popup__img').src= image.src;
     this._popupElement.querySelector('.popup__img').alt= image.alt;

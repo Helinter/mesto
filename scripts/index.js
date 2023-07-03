@@ -12,10 +12,7 @@ const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputJob = document.querySelector('.popup__input_type_job');
 const profileTitle = document.querySelector('.profile__info-title');
 const profileSubtitle = document.querySelector('.profile__info-subtitle');
-const imagePopupImg = document.querySelector('.popup__img');
-const imagePopupTitle = document.querySelector('.popup__image-container-title');
 const openProfileEditPopup = document.querySelector('.profile__info-edit-button');
-const popupImage = document.querySelector('.popup_type_image');
 const formProfileElement = document.forms.profileForm;
 const placeInput = document.querySelector('.popup__input_type_place');
 const linkInput = document.querySelector('.popup__input_type_link');
@@ -50,12 +47,10 @@ const initialCards = [
 ];
 const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', handleFormSubmit(formProfileElement), formProfileElement);
 const popupFormPlace = new PopupWithForm('.popup_type_card', handleFormSubmit(formCardElement), formCardElement);
-
-console.log(popupFormProfile._getInputValues());
-
-//POPUP IMAGE
 const popupCard = new PopupWithImage('.popup_type_image');
 
+
+//POPUP IMAGE
 function handleCardClick(image) {
   popupCard.open(image);
 }
@@ -84,13 +79,17 @@ const aNewCard = new Section({
 
 function renderNewCard() {
   const item = {};
-  item.name = placeInput.value;
-  item.link = linkInput.value;
+  const inputValues = popupFormPlace._getInputValues();
+  item.name = inputValues.formPlace;
+  item.link = inputValues.formLink;
   aNewCard.addItem(createCard(item))
   popupFormPlace.close();
 }
 
 function editProfileInformation() {
+const inputValues = popupFormProfile._getInputValues();
+profileTitle.textContent = inputValues.formName;
+profileSubtitle.textContent = inputValues.formJob;
 
   popupFormProfile.close();
 }
