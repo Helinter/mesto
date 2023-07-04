@@ -13,10 +13,7 @@ module.exports = {
   },
   mode: 'production',
   devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'),
-    },
-    compress: true,
+    static: './dist',
     port: 8080,
   },
   module: {
@@ -39,6 +36,10 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
+      },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader',
       },
     ],
   },
