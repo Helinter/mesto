@@ -53,7 +53,7 @@ export class FormValidator {
     this._errorElement.textContent = inputItem.validationMessage;
   }
   _buttonDisabled(){
-    this._submitButton.classList.add('popup__container-button_invalid');
+    this._submitButton.classList.add(this._config.inactiveButtonClass);
     this._submitButton.disabled = true;
   }
 

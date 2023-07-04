@@ -1,21 +1,21 @@
-export class Section {
+export default class Section{
   constructor({ items, renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
-    this._items = items;
+    this._items = items.reverse(); // Инвертируем порядок элементов массива
   }
 
   renderItems() {
     this._items.forEach(item => {
       this._renderer(item);
     })
-    };
+  };
 
-    addItem(element) {
-    if (this._items.length > 1) {
-    this._container.append(element);}
-    else { this._container.prepend(element);}
+  addItem(element, prepend = false) {
+    if (prepend) {
+      this._container.prepend(element);
+    } else {
+      this._container.append(element);
+    }
   }
-  }
-
-
+}

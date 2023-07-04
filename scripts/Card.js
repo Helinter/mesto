@@ -1,8 +1,5 @@
 export class Card {
   constructor(data, cardTemplate, handleCardClick) {
-    this._popupImage = data.popupImage,
-      this._imagePopupImg = data.imagePopupImg,
-      this._imagePopupTitle = data.imagePopupTitle,
       this._cardElement = cardTemplate.querySelector('.element').cloneNode(true),
       this._name = data.name,
       this._link = data.link,
@@ -11,6 +8,10 @@ export class Card {
       this._likeButton = this._cardElement.querySelector('.element__like-button'),
       this._listItem = this._deleteButton.closest('.element'),
       this._handleCardClick = handleCardClick;
+      this._imageData = {
+        link: this._link,
+        name: this._name
+      };
   }
   createCard() {
     this._htmlSetings();
@@ -31,7 +32,7 @@ export class Card {
   }
 
   _popupImgOn() {
-      this._handleCardClick(this._titleImage);
+      this._handleCardClick(this._imageData);
   }
 
   _deleteOn() {
