@@ -46,8 +46,7 @@ const initialCards = [
   }
 ];
 
-const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', () => {
-  const inputValues = popupFormProfile._getInputValues();
+const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', (inputValues) => {
   userInfo.setUserInfo({
     name: inputValues.formName,
     info: inputValues.formJob
@@ -56,8 +55,7 @@ const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', () => {
 });
 popupFormProfile.setEventListeners();
 
-const popupFormPlace = new PopupWithForm('.popup_type_card', () => {
-  const inputValues = popupFormPlace._getInputValues();
+const popupFormPlace = new PopupWithForm('.popup_type_card', (inputValues) => {
   const item = {
     name: inputValues.formPlace,
     link: inputValues.formLink
