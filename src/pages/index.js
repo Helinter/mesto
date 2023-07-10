@@ -35,16 +35,39 @@ const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', (inputVal
 });
 popupFormProfile.setEventListeners();
 
+const createCardServer = (name, link) => {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-70/cards', {
+    method: 'POST',
+    headers: {
+      authorization: '9e4f7ba1-e97e-4ac3-9791-bede623fb8bb',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: name,
+      link: link
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log('Новая карточка создана:', data);
+    renderNewCard(data);
+  })
+  .catch(error => {
+    console.log('Ошибка:', error);
+  });
+};
+
 
 const popupFormPlace = new PopupWithForm('.popup_type_card', (inputValues) => {
   const item = {
     name: inputValues.formPlace,
     link: inputValues.formLink
   };
-  renderNewCard(item);
+  createCardServer(item.name, item.link);
   popupFormPlace.close();
 });
 popupFormPlace.setEventListeners();
+
 
 const popupCard = new PopupWithImage('.popup_type_image');
 popupCard.setEventListeners();
@@ -82,13 +105,12 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-70/cards', {
   .then(res => res.json())
   .then(res => {
     const cardsFromServer = res;
-    
 
     const updatedCards = cardsFromServer.map(card => ({
       name: card.name,
-      link: card.link
+      link: card.link,
+      likes: card.likes,
     }));
-
 
     renderCards = new Section(
       {
@@ -100,32 +122,26 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-70/cards', {
 
     renderCards.renderItems();
   });
-
-  const updateProfile = (name, about) => {
-    fetch('https://mesto.nomoreparties.co/v1/cohort-70/users/me', {
-      method: 'PATCH',
-      headers: {
-        authorization: '9e4f7ba1-e97e-4ac3-9791-bede623fb8bb',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        about: about
-      })
+const updateProfile = (name, about) => {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-70/users/me', {
+    method: 'PATCH',
+    headers: {
+      authorization: '9e4f7ba1-e97e-4ac3-9791-bede623fb8bb',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: name,
+      about: about
     })
-    .then(res => res.json())
-    .then(data => {
-      
-      console.log('Данные обновлены:', data);
-      
-    })
-    .catch(error => {
-      
-      console.log('Ошибка при обновлении:', error);
-    });
-  }
-  
-
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log('Данные обновлены:', data);
+  })
+  .catch(error => {
+    console.log('Ошибка при обновлении:', error);
+  });
+}
 
 //POPUP IMAGE
 function handleCardClick(cardData) {
@@ -144,7 +160,10 @@ function renderer(item) {
 
 function renderNewCard(item) {
   renderCards.addItem(createCard(item), true);
+  const likeCounterElement = renderCards.getItem().querySelector('.like-counter');
+  likeCounterElement.textContent = item.likes.length;
 }
+
 
 // Forms
 openProfileEditPopup.addEventListener('click', function () {

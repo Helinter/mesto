@@ -3,27 +3,27 @@
 
 <head>
   <meta charset="UTF-8">
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
-  
+
 </head>
 
 <body class="page">
   <header class="header">
     <img class="header__logo" src="./images/logo.svg" alt="лого">
-</header>
-<main class="content">
+  </header>
+  <main class="content">
     <section class="profile">
-        <img class="profile__avatar" src="./images/Avatar.png" alt="аватар">
-        <div class="profile__info">
-            <h1 class="profile__info-title"></h1>
-            <button type="button" class="button profile__info-edit-button"></button>
-            <p class="profile__info-subtitle"></p>
-        </div>
-        <button type="button" class="button profile__add-button">
-            <img class="profile__add-button-image" src="./images/add-button.svg" alt="плюс">
-        </button>
+      <img class="profile__avatar" src="./images/Avatar.png" alt="аватар">
+      <div class="profile__info">
+        <h1 class="profile__info-title"></h1>
+        <button type="button" class="button profile__info-edit-button"></button>
+        <p class="profile__info-subtitle"></p>
+      </div>
+      <button type="button" class="button profile__add-button">
+        <img class="profile__add-button-image" src="./images/add-button.svg" alt="плюс">
+      </button>
     </section>
     <section class="elements">
 
@@ -57,9 +57,11 @@
         <span id="formPlace-error" class="error"></span>
         <input class="popup__input popup__input_type_place" minlength="2" maxlength="30" type="text" name="formPlace"
           placeholder="Название" required>
-        <input class="popup__input popup__input_type_link" type="url" name="formLink" placeholder="Ссылка на картинку" required>
+        <input class="popup__input popup__input_type_link" type="url" name="formLink" placeholder="Ссылка на картинку"
+          required>
         <span id="formLink-error" class="error"></span>
-        <button type="submit" class="popup__container-button popup__container-button_invalid" id="cardSubmit" disabled>Создать</button>
+        <button type="submit" class="popup__container-button popup__container-button_invalid" id="cardSubmit"
+          disabled>Создать</button>
       </form>
     </div>
   </div>
@@ -76,7 +78,10 @@
     <div class="element">
       <img class="element__image">
       <h2 class="element__title"></h2>
-      <button type="button" class="element__like-button"></button>
+      <div class="element__likes">
+        <button type="button" class="element__like-button"></button>
+        <p class="element__like-counter"></p>
+      </div>
       <button type="button" class="element__delete-button"></button>
     </div>
   </template>
