@@ -57,4 +57,17 @@ export class Api {
     }
     return await Promise.reject(`Ошибка: ${res.status}`);
   }
+
+  // Метод для удаления карточки с сервера
+  async deleteCard(cardId) {
+    const res = await fetch(`${this.url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this.headers
+    });
+    if (res.ok) {
+      return res.json();
+    }
+    return await Promise.reject(`Ошибка: ${res.status}`);
+  }
+
 }
