@@ -26,6 +26,7 @@ export class Card {
     this._cardElement.querySelector('.element__title').textContent = this._name;
     this._titleImage.setAttribute('src', this._link);
     this._titleImage.setAttribute('alt', this._name);
+    
     this._likeCounter.textContent = this._likes.length;
   }
 
@@ -46,9 +47,11 @@ export class Card {
 
   _toggleLike() {
     this._likeButton.classList.toggle('element__like-button_active');
-    this._likes = this._likeButton.classList.contains('element__like-button_active')
-      ? [...this._likes, {}]
-      : this._likes.slice(0, -1);
+    if (this._likeButton.classList.contains('element__like-button_active')) {
+      this._likes.push({});
+    } else {
+      this._likes.pop();
+    }
     this._likeCounter.textContent = this._likes.length;
   }
 }

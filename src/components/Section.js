@@ -2,7 +2,7 @@ export default class Section{
   constructor({ items, renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
-    this._items = items.reverse(); // Инвертируем порядок элементов массива
+    this._items = items.reverse(); 
   }
 
   renderItems() {
