@@ -3,7 +3,8 @@ export class Card {
     this._cardElement = cardTemplate.querySelector('.element').cloneNode(true);
     this._name = data.name;
     this._link = data.link;
-    this._likes = data.likes; 
+    this._likes = data.likes;
+    this._id = data.id; 
     this._titleImage = this._cardElement.querySelector('.element__image');
     this._deleteButton = this._cardElement.querySelector('.element__delete-button');
     this._likeButton = this._cardElement.querySelector('.element__like-button');
@@ -26,8 +27,8 @@ export class Card {
     this._cardElement.querySelector('.element__title').textContent = this._name;
     this._titleImage.setAttribute('src', this._link);
     this._titleImage.setAttribute('alt', this._name);
-    
     this._likeCounter.textContent = this._likes.length;
+
   }
 
   _seteventlisteners() {

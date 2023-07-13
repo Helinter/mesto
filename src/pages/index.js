@@ -30,7 +30,8 @@ const formProfileElement = document.forms.profileForm;
 const openCardPopup = document.querySelector('.profile__add-button');
 const formCardElement = document.forms.placeForm;
 export const data = {};
-
+let externalId;
+let myId;
 const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', (inputValues) => {
   const newName = inputValues.formName;
   const newAbout = inputValues.formJob;
@@ -71,6 +72,7 @@ const popupFormPlace = new PopupWithForm('.popup_type_card', (inputValues) => {
     name: inputValues.formPlace,
     link: inputValues.formLink,
     likes:{}
+    //id: 
   };
   api.addCard(item.name, item.link);//СОЗДАНИЕ НОВОЙ КАРТОЧКИ НА СЕРВЕРЕ
 
@@ -98,11 +100,14 @@ let renderCards;
 api.getCards()
   .then(res => {
     const cardsFromServer = res;
+    console.log(cardsFromServer)
     const cards = cardsFromServer.map(card => ({
       name: card.name,
       link: card.link,
       likes: card.likes,
+      id: card.owner._id
     }));
+    
 
     renderCards = new Section(
       {
@@ -141,14 +146,17 @@ function renderNewCard(item) {
 
 
 //ПОЛУЧЕНИЕ ДАННЫХ О ПОЛЬЗОВАТЕЛЕ С СЕРВЕРА
-api.getUserInfo()
+let externalIdPromise = api.getUserInfo()
   .then(result => {
     const profileInformation = result;
     profileTitle.textContent = profileInformation.name;
     profileSubtitle.textContent = profileInformation.about;
     profileAvatar.src = profileInformation.avatar;
-  }
-    )
+    myId = profileInformation._id;
+    externalId = myId;
+    return externalId;
+  });
 
-
-  
+externalIdPromise.then(externalId => {
+  console.log(externalId);
+});
