@@ -29,6 +29,14 @@ export class Card {
     return this._cardElement;
   }
 
+  _updateDeleteButton() {
+    if (this._ownerId === this.myId) {
+      this._cardElement.appendChild(this._deleteButton);
+    } else {
+      this._deleteButton.remove();
+    }
+  }
+
   _htmlSettings() {
     this._cardElement.querySelector('.element__title').textContent = this._name;
     this._titleImage.setAttribute('src', this._link);
