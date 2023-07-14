@@ -83,15 +83,18 @@ externalIdPromise.then(myId => {
     const item = {
       name: inputValues.formPlace,
       link: inputValues.formLink,
-      likes: {},
-      myId: myId,
+      likes: [],
     };
     
     api.addCard(item.name, item.link)
       .then(newCard => {
-        item._id = newCard._id; // Обновление идентификатора карточки
+        console.log(item)
+        console.log('newCard._id', newCard._id)
+        item._id = newCard._id;
+        item.ownerId = myId; // Обновление идентификатора карточки
         renderNewCard(item, myId); // Создание и добавление новой карточки на страницу
         popupFormPlace.close();
+        console.log(item)
       })
       .catch(error => {
         console.error('Ошибка при добавлении карточки:', error);
@@ -122,7 +125,7 @@ externalIdPromise.then(myId => {
         link: card.link,
         likes: card.likes,
         ownerId: card.owner._id,
-        id: card._id
+        _id: card._id
             }));
 
       renderCards = new Section(

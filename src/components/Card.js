@@ -1,6 +1,6 @@
 export class Card {
   constructor(data, cardTemplate, handleCardClick, myId, api) {
-    this.id = data.id
+    this.id = data._id
     this.myId = myId;
     this.api = api;
     this._cardElement = cardTemplate.querySelector('.element').cloneNode(true);
