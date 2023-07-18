@@ -1,6 +1,6 @@
 export class Card {
-  constructor(data, cardTemplate, handleCardClick, myId, api) {
-    this.id = data._id
+  constructor(data, cardTemplate, handleCardClick, handleDeleteClick, myId, api) {
+    this.id = data._id;
     this.myId = myId;
     this.api = api;
     this._cardElement = cardTemplate.querySelector('.element').cloneNode(true);
@@ -14,6 +14,7 @@ export class Card {
     this._likeCounter = this._cardElement.querySelector('.element__like-counter'); 
     this._listItem = this._deleteButton.closest('.element');
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
     this._imageData = {
       link: this._link,
       name: this._name
@@ -28,6 +29,7 @@ export class Card {
     }
     return this._cardElement;
   }
+
 
   _updateDeleteButton() {
     if (this._ownerId === this.myId) {
@@ -54,17 +56,22 @@ export class Card {
     this._handleCardClick(this._imageData);
   }
 
-
   _deleteOn() {
+    this._handleDeleteClick(this);
+  }
+
+  deleteCard(){
     this.api.deleteCard(this.id)
       .then(() => {
         this._listItem.remove();
         this._listItem = null;
+        console.log('карточка удалена')
       })
       .catch(error => {
         console.error('Ошибка при удалении карточки:', error);
       });
   }
+  
 
   _toggleLike() {
     this._likeButton.classList.toggle('element__like-button_active');

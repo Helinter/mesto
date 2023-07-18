@@ -38,3 +38,5 @@
 @import url(../blocks/popup/__container-button/popup__container-button_invalid.css);
 @import url(../blocks/element/__like-counter/element__like-counter.css);
 @import url(../blocks/element/__likes/element__likes.css);
+@import url(../blocks/popup/__container_type_delete/popup__container_type_delete.css);
+@import url(../blocks/popup/__container-button_type_delete/popup__container-button_type_delete.css);

@@ -71,6 +71,10 @@ externalIdPromise.then(myId => {
     popupFormPlace.open();
   });
 
+
+
+
+
   function enableValidation(formItem) {
     const form = new FormValidator(config, formItem);
     form.enableValidation();
@@ -85,7 +89,7 @@ externalIdPromise.then(myId => {
       link: inputValues.formLink,
       likes: [],
     };
-    
+
     api.addCard(item.name, item.link)
       .then(newCard => {
         console.log(item)
@@ -126,7 +130,7 @@ externalIdPromise.then(myId => {
         likes: card.likes,
         ownerId: card.owner._id,
         _id: card._id
-            }));
+      }));
 
       renderCards = new Section(
         {
@@ -139,16 +143,36 @@ externalIdPromise.then(myId => {
       renderCards.renderItems();
     });
 
-  //POPUP IMAGE
   function handleCardClick(cardData) {
     popupCard.open(cardData);
   }
 
+  const popupFormDelete = new PopupWithForm('.popup_type_delete', handleDeleteSubmit);
+  popupFormDelete.setEventListeners();
+
+  
+
+  let cardForDelete;
+   function handleDeleteClick(cardDelete) {
+    popupFormDelete.open();
+    cardForDelete = cardDelete;
+  }
+
+
+ function handleDeleteSubmit() {
+  cardForDelete.deleteCard();
+  popupFormDelete.close();
+}
+
+  
+  
+  
   //CARDS
   function createCard(item, myId) {
-    const card = new Card(item, cardTemplate, handleCardClick, myId, api);
-    return card.createCard();
+    const card = new Card(item, cardTemplate, handleCardClick, handleDeleteClick, myId, api);
+       return card.createCard();
   }
+  
 
   function renderer(item) {
     renderCards.addItem(createCard(item, myId), true);
