@@ -43,7 +43,7 @@ let externalIdPromise = api.getUserInfo()
     return myId;
   });
 
-externalIdPromise.then(myId => {
+externalIdPromise.then((myId) => {
   console.log(myId);
   const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', (inputValues) => {
     const newName = inputValues.formName;
@@ -59,7 +59,7 @@ externalIdPromise.then(myId => {
   });
   popupFormProfile.setEventListeners();
   // Forms
-  openProfileEditPopup.addEventListener('click', function () {
+  openProfileEditPopup.addEventListener('click', () => {
     const currentName = userInfo.getUserInfo().name;
     const currentJob = userInfo.getUserInfo().info;
     popupInputName.value = currentName;
@@ -67,13 +67,9 @@ externalIdPromise.then(myId => {
     popupFormProfile.open();
   });
 
-  openCardPopup.addEventListener('click', function () {
+  openCardPopup.addEventListener('click', () => {
     popupFormPlace.open();
   });
-
-
-
-
 
   function enableValidation(formItem) {
     const form = new FormValidator(config, formItem);
@@ -150,29 +146,49 @@ externalIdPromise.then(myId => {
   const popupFormDelete = new PopupWithForm('.popup_type_delete', handleDeleteSubmit);
   popupFormDelete.setEventListeners();
 
-  
-
   let cardForDelete;
-   function handleDeleteClick(cardDelete) {
+  function handleDeleteClick(cardDelete) {
     popupFormDelete.open();
     cardForDelete = cardDelete;
   }
 
+  function handleDeleteSubmit() {
+    cardForDelete.deleteCard();
+    popupFormDelete.close();
+  }
 
- function handleDeleteSubmit() {
-  cardForDelete.deleteCard();
-  popupFormDelete.close();
-}
+  // Обработчик клика на аватар для открытия формы обновления аватара
+const profileAvatar = document.querySelector('.profile__avatar');
+const openAvatarPopup = document.querySelector('.profile__avatar-edit-icon');
+const formAvatarElement = document.forms.avatarForm;
 
-  
-  
-  
+openAvatarPopup.addEventListener('click', function () {
+  popupFormAvatar.open();
+});
+
+// Создание экземпляра формы для обновления аватара
+const popupFormAvatar = new PopupWithForm('.popup_type_edit-avatar', (inputValues) => {
+  const newAvatarLink = inputValues.formAvatar;
+
+  // Отправка запроса на обновление аватара
+  api.updateAvatar(newAvatarLink)
+    .then((result) => {
+      profileAvatar.src = newAvatarLink;
+      popupFormAvatar.close();
+    })
+    .catch(error => {
+      console.error('Ошибка при обновлении аватара:', error);
+    });
+});
+
+popupFormAvatar.setEventListeners();
+
+
   //CARDS
   function createCard(item, myId) {
     const card = new Card(item, cardTemplate, handleCardClick, handleDeleteClick, myId, api);
-       return card.createCard();
+    return card.createCard();
   }
-  
 
   function renderer(item) {
     renderCards.addItem(createCard(item, myId), true);
@@ -183,3 +199,4 @@ externalIdPromise.then(myId => {
     renderCards.addItem(card, true);
   }
 });
+

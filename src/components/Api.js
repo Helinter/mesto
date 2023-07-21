@@ -70,4 +70,39 @@ export class Api {
     return await Promise.reject(`Ошибка: ${res.status}`);
   }
 
+  async addLike(cardId) {
+    const res = await fetch(`${this.url}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: this.headers
+    });
+    if (res.ok) {
+      return res.json();
+    }
+    return await Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  async deleteLike(cardId) {
+    const res = await fetch(`${this.url}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this.headers
+    });
+    if (res.ok) {
+      return res.json();
+    }
+    return await Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  async updateAvatar(avatarLink) {
+    const res = await fetch(`${this.url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: avatarLink
+      })
+    });
+    if (res.ok) {
+      return res.json();
+    }
+    return await Promise.reject(`Ошибка: ${res.status}`);
+  }
 }
