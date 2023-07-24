@@ -17,3 +17,9 @@
   z-index: 2;
   transition: opacity 0.3s; 
 }
+
+@media screen and (max-width: 615px) {
+  .profile__avatar-edit-icon {
+    top:44%;
+  }
+}

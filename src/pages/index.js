@@ -46,18 +46,30 @@ let externalIdPromise = api.getUserInfo()
 externalIdPromise.then((myId) => {
   console.log(myId);
   const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', (inputValues) => {
+    // Заменим текст кнопки на "Сохранение..." и заблокируем кнопку
+    popupFormProfile.renderLoading(true);
+
     const newName = inputValues.formName;
     const newAbout = inputValues.formJob;
 
-    api.updateProfile(newName, newAbout); //ОБНОВЛЕНИЕ ДАННЫХ О ПОЛЬЗОВАТЕЛЕ
-
-    userInfo.setUserInfo({
-      name: newName,
-      info: newAbout
-    });
-    popupFormProfile.close();
+    api.updateProfile(newName, newAbout)
+      .then(() => {
+        userInfo.setUserInfo({
+          name: newName,
+          info: newAbout
+        });
+        popupFormProfile.close();
+      })
+      .catch(error => {
+        console.error('Ошибка при обновлении профиля:', error);
+      })
+      .finally(() => {
+        // Восстановим текст кнопки после завершения загрузки данных
+        popupFormProfile.renderLoading(false);
+      });
   });
   popupFormProfile.setEventListeners();
+  
   // Forms
   openProfileEditPopup.addEventListener('click', () => {
     const currentName = userInfo.getUserInfo().name;
@@ -80,6 +92,9 @@ externalIdPromise.then((myId) => {
   }
 
   const popupFormPlace = new PopupWithForm('.popup_type_card', (inputValues) => {
+    // Заменим текст кнопки на "Сохранение..." и заблокируем кнопку
+    popupFormPlace.renderLoading(true);
+
     const item = {
       name: inputValues.formPlace,
       link: inputValues.formLink,
@@ -88,16 +103,17 @@ externalIdPromise.then((myId) => {
 
     api.addCard(item.name, item.link)
       .then(newCard => {
-        console.log(item)
-        console.log('newCard._id', newCard._id)
         item._id = newCard._id;
-        item.ownerId = myId; // Обновление идентификатора карточки
-        renderNewCard(item, myId); // Создание и добавление новой карточки на страницу
+        item.ownerId = myId;
+        renderNewCard(item, myId);
         popupFormPlace.close();
-        console.log(item)
       })
       .catch(error => {
         console.error('Ошибка при добавлении карточки:', error);
+      })
+      .finally(() => {
+        // Восстановим текст кнопки после завершения загрузки данных
+        popupFormPlace.renderLoading(false);
       });
   });
 
@@ -157,32 +173,33 @@ externalIdPromise.then((myId) => {
     popupFormDelete.close();
   }
 
-  // Обработчик клика на аватар для открытия формы обновления аватара
-const profileAvatar = document.querySelector('.profile__avatar');
-const openAvatarPopup = document.querySelector('.profile__avatar-edit-icon');
-const formAvatarElement = document.forms.avatarForm;
+  // Аватар пользователя
+  const openAvatarPopup = document.querySelector('.profile__avatar-edit-icon');
+  openAvatarPopup.addEventListener('click', function () {
+    popupFormAvatar.open();
+  });
 
-openAvatarPopup.addEventListener('click', function () {
-  popupFormAvatar.open();
-});
+  const popupFormAvatar = new PopupWithForm('.popup_type_edit-avatar', (inputValues) => {
+    // Заменим текст кнопки на "Сохранение..." и заблокируем кнопку
+    popupFormAvatar.renderLoading(true);
 
-// Создание экземпляра формы для обновления аватара
-const popupFormAvatar = new PopupWithForm('.popup_type_edit-avatar', (inputValues) => {
-  const newAvatarLink = inputValues.formAvatar;
+    const newAvatarLink = inputValues.formAvatar;
 
-  // Отправка запроса на обновление аватара
-  api.updateAvatar(newAvatarLink)
-    .then((result) => {
-      profileAvatar.src = newAvatarLink;
-      popupFormAvatar.close();
-    })
-    .catch(error => {
-      console.error('Ошибка при обновлении аватара:', error);
-    });
-});
+    api.updateAvatar(newAvatarLink)
+      .then((result) => {
+        profileAvatar.src = newAvatarLink;
+        popupFormAvatar.close();
+      })
+      .catch(error => {
+        console.error('Ошибка при обновлении аватара:', error);
+      })
+      .finally(() => {
+        // Восстановим текст кнопки после завершения загрузки данных
+        popupFormAvatar.renderLoading(false);
+      });
+  });
 
-popupFormAvatar.setEventListeners();
-
+  popupFormAvatar.setEventListeners();
 
   //CARDS
   function createCard(item, myId) {
@@ -199,4 +216,3 @@ popupFormAvatar.setEventListeners();
     renderCards.addItem(card, true);
   }
 });
-
