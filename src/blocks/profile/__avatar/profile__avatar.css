@@ -3,10 +3,10 @@
   height: 120px;
   max-width: 100%;
   border-radius: 50%;
-  overflow: hidden; 
+  overflow: hidden;
   margin-right: 30px;
   object-fit: cover;
-  opacity: 1; 
+  opacity: 1;
   transition: opacity 0.3s;
 }
 
