@@ -1,5 +1,6 @@
 export class Card {
-  constructor(data, cardTemplate, handleCardClick, handleDeleteClick, myId, api) {
+  constructor(data, cardTemplate, handleCardClick, handleDeleteClick, myId, api, popupFormDelete) {
+    this._popupFormDelete = popupFormDelete;
     this.id = data._id;
     this.myId = myId;
     this.api = api;
@@ -19,6 +20,10 @@ export class Card {
       link: this._link,
       name: this._name
     };
+  }
+
+  getCardId() {
+    return this.id;
   }
 
   createCard() {
@@ -67,17 +72,19 @@ export class Card {
     this._handleDeleteClick(this);
   }
 
-  deleteCard(){
+  deleteCard() {
     this.api.deleteCard(this.id)
       .then(() => {
         this._listItem.remove();
         this._listItem = null;
-        console.log('карточка удалена')
+        this._popupFormDelete.close(); // Закрываем модальное окно
+        console.log('карточка удалена');
       })
       .catch(error => {
         console.error('Ошибка при удалении карточки:', error);
       });
-  }
+}
+
   
   updateLikeCount() {
     this._likeCounter.textContent = this._likes.length;

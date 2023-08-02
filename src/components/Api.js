@@ -4,15 +4,20 @@ export class Api {
     this.headers = config.headers;
   }
 
+  // Метод для проверки ответа от сервера
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   // Метод для получения карточек с сервера
   async getCards() {
     const res = await fetch(`${this.url}/cards`, {
       headers: this.headers
     });
-    if (res.ok) {
-      return res.json();
-    }
-    return await Promise.reject(`Ошибка: ${res.status}`);
+    return this._checkResponse(res);
   }
 
   // Метод для добавления новой карточки на сервер
@@ -25,10 +30,7 @@ export class Api {
         link: link
       })
     });
-    if (res.ok) {
-      return res.json();
-    }
-    return await Promise.reject(`Ошибка: ${res.status}`);
+    return this._checkResponse(res);
   }
 
   // Метод для обновления информации о пользователе на сервере
@@ -41,10 +43,9 @@ export class Api {
         about: about
       })
     });
-    if (res.ok) {
-      return res.json();
-    }
-    return await Promise.reject(`Ошибка: ${res.status}`);
+  
+    const data = await this._checkResponse(res);
+    return data;
   }
 
   // Метод для получения информации о пользователе с сервера
@@ -52,10 +53,7 @@ export class Api {
     const res = await fetch(`${this.url}/users/me`, {
       headers: this.headers
     });
-    if (res.ok) {
-      return res.json();
-    }
-    return await Promise.reject(`Ошибка: ${res.status}`);
+    return this._checkResponse(res);
   }
 
   // Метод для удаления карточки с сервера
@@ -64,10 +62,7 @@ export class Api {
       method: 'DELETE',
       headers: this.headers
     });
-    if (res.ok) {
-      return res.json();
-    }
-    return await Promise.reject(`Ошибка: ${res.status}`);
+    return this._checkResponse(res);
   }
 
   async addLike(cardId) {
@@ -75,10 +70,7 @@ export class Api {
       method: 'PUT',
       headers: this.headers
     });
-    if (res.ok) {
-      return res.json();
-    }
-    return await Promise.reject(`Ошибка: ${res.status}`);
+    return this._checkResponse(res);
   }
 
   async deleteLike(cardId) {
@@ -86,10 +78,7 @@ export class Api {
       method: 'DELETE',
       headers: this.headers
     });
-    if (res.ok) {
-      return res.json();
-    }
-    return await Promise.reject(`Ошибка: ${res.status}`);
+    return this._checkResponse(res);
   }
 
   async updateAvatar(avatarLink) {
@@ -100,9 +89,6 @@ export class Api {
         avatar: avatarLink
       })
     });
-    if (res.ok) {
-      return res.json();
-    }
-    return await Promise.reject(`Ошибка: ${res.status}`);
+    return this._checkResponse(res);
   }
 }

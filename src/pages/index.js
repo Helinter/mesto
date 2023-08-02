@@ -1,4 +1,5 @@
 //IMPORT
+import { apiConfig, cardTemplate, popupInputName, popupInputJob, profileTitle, profileSubtitle, profileAvatar, openProfileEditPopup, formProfileElement, openCardPopup, formCardElement } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { config } from "../vendor/config.js";
@@ -8,32 +9,18 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import './index.css';
 import { Api } from '../components/Api.js';
-
-const apiConfig = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-70',
-  headers: {
-    authorization: '9e4f7ba1-e97e-4ac3-9791-bede623fb8bb',
-    'Content-Type': 'application/json'
-  }
-};
-
 const api = new Api(apiConfig);
-const cardTemplate = document.querySelector('.card').content;
-const popupInputName = document.querySelector('.popup__input_type_name');
-const popupInputJob = document.querySelector('.popup__input_type_job');
-const profileTitle = document.querySelector('.profile__info-title');
-const profileSubtitle = document.querySelector('.profile__info-subtitle');
-const profileAvatar = document.querySelector('.profile__avatar');
-const openProfileEditPopup = document.querySelector('.profile__info-edit-button');
-const formProfileElement = document.forms.profileForm;
-const openCardPopup = document.querySelector('.profile__add-button');
-const formCardElement = document.forms.placeForm;
 
+const userInfo = new UserInfo({
+  nameSelector: '.profile__info-title',
+  infoSelector: '.profile__info-subtitle',
+  avatarSelector: '.profile__avatar'
+});
 export const data = {};
 let myId;
 
 //ПОЛУЧЕНИЕ ДАННЫХ О ПОЛЬЗОВАТЕЛЕ С СЕРВЕРА
-let externalIdPromise = api.getUserInfo()
+const externalIdPromise = api.getUserInfo()
   .then(result => {
     const profileInformation = result;
     profileTitle.textContent = profileInformation.name;
@@ -46,30 +33,25 @@ let externalIdPromise = api.getUserInfo()
 externalIdPromise.then((myId) => {
   console.log(myId);
   const popupFormProfile = new PopupWithForm('.popup_type_edit-profile', (inputValues) => {
-    // Заменим текст кнопки на "Сохранение..." и заблокируем кнопку
     popupFormProfile.renderLoading(true);
 
     const newName = inputValues.formName;
     const newAbout = inputValues.formJob;
 
     api.updateProfile(newName, newAbout)
-      .then(() => {
-        userInfo.setUserInfo({
-          name: newName,
-          info: newAbout
-        });
+      .then((result) => {
+        userInfo.setUserInfo(result); // Обновление всех данных пользователя
         popupFormProfile.close();
       })
       .catch(error => {
         console.error('Ошибка при обновлении профиля:', error);
       })
       .finally(() => {
-        // Восстановим текст кнопки после завершения загрузки данных
         popupFormProfile.renderLoading(false);
       });
   });
   popupFormProfile.setEventListeners();
-  
+
   // Forms
   openProfileEditPopup.addEventListener('click', () => {
     const currentName = userInfo.getUserInfo().name;
@@ -87,12 +69,11 @@ externalIdPromise.then((myId) => {
     const form = new FormValidator(config, formItem);
     form.enableValidation();
     formItem.addEventListener('submit', () => {
-      form._buttonDisabled();
+      form.buttonDisabled();
     });
   }
 
   const popupFormPlace = new PopupWithForm('.popup_type_card', (inputValues) => {
-    // Заменим текст кнопки на "Сохранение..." и заблокируем кнопку
     popupFormPlace.renderLoading(true);
 
     const item = {
@@ -102,7 +83,7 @@ externalIdPromise.then((myId) => {
     };
 
     api.addCard(item.name, item.link)
-      .then(newCard => {
+      .then((newCard) => {
         item._id = newCard._id;
         item.ownerId = myId;
         renderNewCard(item, myId);
@@ -112,7 +93,6 @@ externalIdPromise.then((myId) => {
         console.error('Ошибка при добавлении карточки:', error);
       })
       .finally(() => {
-        // Восстановим текст кнопки после завершения загрузки данных
         popupFormPlace.renderLoading(false);
       });
   });
@@ -122,10 +102,7 @@ externalIdPromise.then((myId) => {
   const popupCard = new PopupWithImage('.popup_type_image');
   popupCard.setEventListeners();
 
-  const userInfo = new UserInfo({
-    nameSelector: '.profile__info-title',
-    infoSelector: '.profile__info-subtitle'
-  });
+  
 
   enableValidation(formProfileElement);
   enableValidation(formCardElement);
@@ -134,7 +111,7 @@ externalIdPromise.then((myId) => {
 
   //ПОЛУЧЕНИЕ КАРТОЧЕК С СЕРВЕРА
   api.getCards()
-    .then(res => {
+    .then((res) => {
       const cardsFromServer = res;
       const cards = cardsFromServer.map(card => ({
         name: card.name,
@@ -170,7 +147,6 @@ externalIdPromise.then((myId) => {
 
   function handleDeleteSubmit() {
     cardForDelete.deleteCard();
-    popupFormDelete.close();
   }
 
   // Аватар пользователя
@@ -180,21 +156,19 @@ externalIdPromise.then((myId) => {
   });
 
   const popupFormAvatar = new PopupWithForm('.popup_type_edit-avatar', (inputValues) => {
-    // Заменим текст кнопки на "Сохранение..." и заблокируем кнопку
     popupFormAvatar.renderLoading(true);
 
     const newAvatarLink = inputValues.formAvatar;
 
     api.updateAvatar(newAvatarLink)
       .then((result) => {
-        profileAvatar.src = newAvatarLink;
+        userInfo.setUserInfo(result); // Обновление всех данных пользователя
         popupFormAvatar.close();
       })
       .catch(error => {
         console.error('Ошибка при обновлении аватара:', error);
       })
       .finally(() => {
-        // Восстановим текст кнопки после завершения загрузки данных
         popupFormAvatar.renderLoading(false);
       });
   });
@@ -203,7 +177,7 @@ externalIdPromise.then((myId) => {
 
   //CARDS
   function createCard(item, myId) {
-    const card = new Card(item, cardTemplate, handleCardClick, handleDeleteClick, myId, api);
+    const card = new Card(item, cardTemplate, handleCardClick, handleDeleteClick, myId, api, popupFormDelete);
     return card.createCard();
   }
 
@@ -215,4 +189,7 @@ externalIdPromise.then((myId) => {
     const card = createCard(item, myId);
     renderCards.addItem(card, true);
   }
+})
+.catch(error => {
+  console.error('Ошибка', error);
 });
