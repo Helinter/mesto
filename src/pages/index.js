@@ -23,9 +23,7 @@ let myId;
 const externalIdPromise = api.getUserInfo()
   .then(result => {
     const profileInformation = result;
-    profileTitle.textContent = profileInformation.name;
-    profileSubtitle.textContent = profileInformation.about;
-    profileAvatar.src = profileInformation.avatar;
+    userInfo.setUserInfo(profileInformation); // Используем метод setUserInfo
     myId = profileInformation._id;
     return myId;
   });
@@ -130,8 +128,11 @@ externalIdPromise.then((myId) => {
       );
 
       renderCards.renderItems();
+    })
+    .catch(error => {
+      console.error('Ошибка', error);
     });
-
+    
   function handleCardClick(cardData) {
     popupCard.open(cardData);
   }
